@@ -9,6 +9,7 @@ const EditBook = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [publishYear, setPublishYear] = useState('');
+  const [details, setDetails] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {id} = useParams();
@@ -21,6 +22,7 @@ const EditBook = () => {
         setAuthor(response.data.author);
         setPublishYear(response.data.publishYear)
         setTitle(response.data.title)
+        setDetails(response.data.details)
         setLoading(false);
       }).catch((error) => {
         setLoading(false);
@@ -34,10 +36,11 @@ const EditBook = () => {
       title,
       author,
       publishYear,
+      details,
     };
     setLoading(true);
     axios
-      .put(`http://localhost:5555/books/${id}`, data)
+      .put(`https://book-store-9j8p.onrender.com/books/${id}`, data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Book Edited successfully', { variant: 'success' });
@@ -81,6 +84,15 @@ const EditBook = () => {
             type='number'
             value={publishYear}
             onChange={(e) => setPublishYear(e.target.value)}
+            className='border-2 border-gray-500 px-4 py-2  w-full '
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>Details</label>
+          <input
+            type='text'
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
             className='border-2 border-gray-500 px-4 py-2  w-full '
           />
         </div>
